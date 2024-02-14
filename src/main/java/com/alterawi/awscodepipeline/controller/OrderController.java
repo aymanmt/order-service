@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Comparator;
 import java.util.List;
 
 @RestController
@@ -21,6 +22,6 @@ public class OrderController {
 
     @GetMapping
     public ResponseEntity<List<Order>> getOrders() {
-        return ResponseEntity.ok(orderDao.getOrders());
+        return ResponseEntity.ok(orderDao.getOrders().stream().sorted(Comparator.comparing(Order::getPrice)).toList());
     }
 }
